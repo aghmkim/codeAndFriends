@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class LayeredArchitecture {
 	
-	private char delim = ',';
+	private char delim = '~'; //~ has a bit code of 01111110 which makes an ideal FLAG for bit stuffing
 	//The characters that will be used by the createRandomString function
 	private String characters = "abcdefghikjlmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	String destIPAddress = "170.16.0.5";
@@ -43,13 +43,13 @@ public class LayeredArchitecture {
 	private void networkProtocol(String input, int size){
 		String header = createRandomString(64);
 		String output = input.concat(delim + header);
+		output = destIPAddress.concat(portNum).concat(output);
 		System.out.println(output);
 		dataLinkProtocol(output,size);
 	}
 	private void dataLinkProtocol(String input, int size){
 		String header = createRandomString(64);
 		String output = input.concat(delim + header);
-		output = destIPAddress.concat(portNum).concat(output);
 		System.out.println(output);
 		physicalProtocol(output,size);
 	}
@@ -85,5 +85,13 @@ public class LayeredArchitecture {
 			binary.append(' ');
 		}
 		return new String (binary);
+	}
+	
+	//WORK IN PROGRESS
+	//idea: knowing how long the message is, and how long the headers are (64 characters)
+	//^if those assumptions could be made, the code can know which bytes NOT to stuff
+	//the proceed to stuff all other bytes where needed
+	public String byteStuffing () {
+		return "nocompileerrorrsplease";
 	}
 }

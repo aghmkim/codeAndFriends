@@ -2,6 +2,11 @@
 public class BitstreamEncoder {
 	//ASSUMED THAT A CHARACTER IS 8 BITS LONG
 	
+	/**
+	 * Generates a CheckSum for the provided Bitstream and appends it to the end
+	 * @param input the bitstream to have a CheckSum appended
+	 * @return The provided Bitstream with an 8-bit CheckSum appended at the end
+	 */
 	public String generator (String input) {
 		String val=input;
 		String result = "00000000";
@@ -26,6 +31,10 @@ public class BitstreamEncoder {
 		return input.concat(checkSum);
 	}
 	
+	/**
+	 * Checks for changed data assuming the CheckSum has been appended to the end of the bitstream
+	 * @param input Bitstream with a CheckSum appended to the end
+	 */
 	public void verifier (String input) {
 		String val=input;
 		String result = "00000000";
@@ -44,6 +53,12 @@ public class BitstreamEncoder {
 		}
 	}
 	
+	/**
+	 * Inverts a bit at a specified index. Counting the leftmost bit as index 1
+	 * @param input bit stream (1's and 0's) in a String
+	 * @param index specified index of bit to invert
+	 * @return The input bitstream with the specified bit inverted
+	 */
 	public String alter(String input, int index) {
 		input=input.replaceAll(" ","");
 		index=index-1;
